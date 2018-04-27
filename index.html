@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pdfjs Demo</title>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="//fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+</head>
+
+<body>
+    <h1>Pdfjs</h1>
+    <canvas id="the-canvas"></canvas>
+
+
+    <script>
+        var settings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "http://125.17.78.251:8988/CampusLynxPortal/clxuser/StudentBiodataPDF",
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache",
+                "Postman-Token": "6960abcd-cd53-4b64-be27-31152c1d59bc"
+            },
+            "processData": false,
+            "data": "{\"memberid\":\"ITERSTUT1607A0000064\"} \r\n"
+        }
+
+        $.ajax(settings).done(function (response) {
+            var data = new Blob([response], { type: 'application/pdf;charset=utf-8' });
+FileSaver.saveAs(data, "download.pdf");
+
+            
+             });
+
+        function base64ToArrayBuffer(data) {
+            var binaryString = data;
+            var binaryLen = binaryString.length;
+            var bytes = new Uint8Array(binaryLen);
+            for (var i = 0; i < binaryLen; i++) {
+                var ascii = binaryString.charCodeAt(i);
+                bytes[i] = ascii;
+            }
+            return bytes;
+        };
+
+    </script>
+</body>
+
+</html>
